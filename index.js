@@ -29,7 +29,7 @@ function Start() {
     player.isStart = true;
     player.score = 0;
     window.requestAnimationFrame(Play);
-}
+
 for (i = 0; i < 5; i++) {
     let roadLines = document.createElement('div');
     roadLines.setAttribute('class', 'roadLines');
@@ -45,5 +45,26 @@ for (i = 0; i < 3; i++) {
     gameArea.appendChild(Opponents);
     Opponents.style.left = Math.floor(Math.random() * 350) + "px";
     Opponents.style.backgroundColor = randomColor();
+}
+function Play() {
+    let car = document.querySelector('.car');
+    let road = gameArea.getBoundingClientRect();
+    if (player.isStart) {
+        moveOpponents(car);
+    }
+}
+function moveOpponents(car) {
+    let Opponents = document.querySelectorAll('.Opponents');
+    Opponents.forEach(function (item) {
+        if (isCollide(car, item)) {
+            endGame();
+        }
+        if (item.y >= 750) {
+            item.y -= 900;
+            item.style.left = Math.floor(Math.random() * 350) + "px";
+        }
+        item.y += player.speed;
+        item.style.top = item.y + "px";
+    })
 }
 
