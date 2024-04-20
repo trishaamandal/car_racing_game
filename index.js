@@ -51,6 +51,23 @@ function Play() {
     let road = gameArea.getBoundingClientRect();
     if (player.isStart) {
         moveOpponents(car);
+        if (keys.ArrowUp && player.y > (road.top + 70)) { player.y -= player.speed }
+        if (keys.ArrowDown && player.y < (road.height - 75)) { player.y += player.speed }
+        if (keys.ArrowRight && player.x < 350) { player.x += player.speed }
+        if (keys.ArrowLeft && player.x > 0) { player.x -= player.speed }
+        car.style.top = player.y + "px";
+        car.style.left = player.x + "px";
+        highScore.innerHTML = "HighScore" + ":" + (player.highScore - 1);
+        player.score++;
+        player.speed += 0.01;
+        if (player.highScore < player.score) {
+            player.highScore++;
+            highScore.innerHTML = "HighScore" + ":" + (player.highScore - 1);
+            highScore.style.top = "80px";
+        }
+        score.innerHTML = "Score" + ":" + (player.score - 1);
+        window.requestAnimationFrame(Play);
+    
     }
 }
 function moveOpponents(car) {
