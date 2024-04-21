@@ -50,6 +50,7 @@ function Play() {
     let car = document.querySelector('.car');
     let road = gameArea.getBoundingClientRect();
     if (player.isStart) {
+        moveLines();
         moveOpponents(car);
         if (keys.ArrowUp && player.y > (road.top + 70)) { player.y -= player.speed }
         if (keys.ArrowDown && player.y < (road.height - 75)) { player.y += player.speed }
@@ -69,6 +70,15 @@ function Play() {
         window.requestAnimationFrame(Play);
     
     }
+}
+function moveLines() {
+    let roadLines = document.querySelectorAll('.roadLines');
+    roadLines.forEach(function (item) {
+        if (item.y >= 700)
+            item.y -= 700;
+        item.y += player.speed;
+        item.style.top = item.y + "px";
+    })
 }
 function moveOpponents(car) {
     let Opponents = document.querySelectorAll('.Opponents');
